@@ -1,0 +1,29 @@
+{
+  "server": {
+    "port": 3000,
+    "host": "localhost",
+    "cors_origins": ["http://localhost", "http://127.0.0.1", "http://localhost:8080"]
+  },
+  "serial": {
+    "port": "COM3", 
+    "baudRate": 9600,
+    "dataBits": 8,
+    "stopBits": 1,
+    "parity": "none",
+    "autoOpen": false,
+    "timeout": 60000
+  },
+  "tef": {
+    "timeoutTransaction": 120000,
+    "maxRetries": 3,
+    "enablePanSending": true,
+    "mockMode": true,
+    "mockPort": "/dev/tty.mock"
+  },
+  "transactions": {
+    "compra": {
+      "header": "31303030202030",
+      "requiresPan": true
+    }
+  }
+}

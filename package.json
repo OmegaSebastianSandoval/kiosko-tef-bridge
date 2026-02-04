@@ -1,0 +1,37 @@
+{
+  "name": "tef-bridge",
+  "version": "1.0.0",
+  "description": "Puente TEF II para integración con datáfonos Credibanco",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "NODE_ENV=development node --watch index.js",
+    "mock": "NODE_ENV=mock node index.js",
+    "test": "node tests/test-tef.js",
+    "test-api": "node test-api.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "tef",
+    "credibanco",
+    "pos",
+    "payment",
+    "serial"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "serialport": "^12.0.0",
+    "winston": "^3.11.0",
+    "dotenv": "^16.3.1",
+    "joi": "^17.10.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

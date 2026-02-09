@@ -82,3 +82,32 @@
 {"level":"info","message":"Mock: Transacción aprobada","service":"tef-bridge","timestamp":"2026-01-30 14:20:19"}
 {"amount":12200,"level":"info","message":"Compra procesada","service":"tef-bridge","success":true,"timestamp":"2026-01-30 14:20:19","transactionId":"3"}
 {"level":"info","message":"Recibido SIGINT, cerrando servicio...","service":"tef-bridge","timestamp":"2026-01-30 15:19:45"}
+{"level":"info","message":"Modo desarrollo detectado, activando modo mock","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"=== Iniciando Puente TEF II ===","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Node.js v22.17.0","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Entorno: development","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Conectando a COM3...","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Puertos disponibles: /dev/tty.debug-console, /dev/tty.Bluetooth-Incoming-Port, /dev/tty.G435SEBluetoothGamingHe","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"warn","message":"No se encontró puerto serial. Activando modo mock...","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Servidor HTTP en http://localhost:3000","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"=== Servicio listo ===","service":"tef-bridge","timestamp":"2026-02-09 14:34:25"}
+{"level":"info","message":"Recibido SIGTERM, cerrando servicio...","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Modo desarrollo detectado, activando modo mock","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"=== Iniciando Puente TEF II ===","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Node.js v22.17.0","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Entorno: development","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Conectando a COM3...","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Puertos disponibles: /dev/tty.debug-console, /dev/tty.Bluetooth-Incoming-Port, /dev/tty.G435SEBluetoothGamingHe","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"warn","message":"No se encontró puerto serial. Activando modo mock...","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Servidor HTTP en http://localhost:3000","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"=== Servicio listo ===","service":"tef-bridge","timestamp":"2026-02-09 15:35:17"}
+{"level":"info","message":"Recibido SIGTERM, cerrando servicio...","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Modo desarrollo detectado, activando modo mock","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"=== Iniciando Puente TEF II ===","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Node.js v22.17.0","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Entorno: development","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Conectando a COM3...","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Puertos disponibles: /dev/tty.debug-console, /dev/tty.Bluetooth-Incoming-Port, /dev/tty.G435SEBluetoothGamingHe","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"warn","message":"No se encontró puerto serial. Activando modo mock...","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"Servidor HTTP en http://localhost:3000","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}
+{"level":"info","message":"=== Servicio listo ===","service":"tef-bridge","timestamp":"2026-02-09 15:35:20"}

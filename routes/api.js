@@ -187,6 +187,12 @@ export function createApiRouter(serialManager, tefProtocol) {
           message: error.details[0].message,
         });
       }
+      logger.info(req.body);
+      logger.info("Procesando compra", {
+        amount: value.amount,
+        terminalId: value.terminalId,
+        cashierId: value.cashierId,
+      });
 
       logger.info("Solicitud de compra recibida", value);
 
@@ -249,7 +255,7 @@ export function createApiRouter(serialManager, tefProtocol) {
 
       res.json(webResponse);
     } catch (error) {
-      logger.error("Error en endpoint /purchase:", error.message);
+      logger.error("Error en endpoint /purchase:", error);
 
       res.status(500).json({
         status: "error",

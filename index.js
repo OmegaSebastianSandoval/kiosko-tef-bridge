@@ -91,6 +91,8 @@ async function initialize() {
 
     // Manejo de errores 404
     app.use((req, res) => {
+      console.log(req);
+      
       res.status(404).json({
         status: "error",
         message: `Ruta no encontrada: ${req.method} ${req.path}`,

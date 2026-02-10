@@ -187,14 +187,14 @@ export function createApiRouter(serialManager, tefProtocol) {
           message: error.details[0].message,
         });
       }
-      logger.info(req.body);
-      logger.info("Procesando compra", {
+      logger.warn(req.body);
+      logger.warn("Procesando compra", {
         amount: value.amount,
         terminalId: value.terminalId,
         cashierId: value.cashierId,
       });
 
-      logger.info("Solicitud de compra recibida", value);
+      logger.warn("Solicitud de compra recibida", value);
 
       // Generar transactionId si no se proporciona
       const transactionId =

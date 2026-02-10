@@ -2,10 +2,16 @@
   "server": {
     "port": 3000,
     "host": "localhost",
-    "cors_origins": ["http://localhost", "http://127.0.0.1", "http://localhost:8080"]
+    "cors_origins": [
+      "http://localhost",
+      "http://127.0.0.1",
+      "http://localhost:8080",
+      "https://kiosko.omegasolucionesweb.com/",
+      "https://vita-grottoed-gabriele.ngrok-free.dev/api/health"
+    ]
   },
   "serial": {
-    "port": "COM3", 
+    "port": "COM3",
     "baudRate": 9600,
     "dataBits": 8,
     "stopBits": 1,

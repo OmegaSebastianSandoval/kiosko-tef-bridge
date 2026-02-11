@@ -200,20 +200,35 @@ export function createApiRouter(serialManager, tefProtocol) {
       const transactionId =
         value.transactionId || `T${Date.now().toString().slice(-9)}`;
 
-      // Construir trama TEF
-      const frame = tefProtocol.buildPurchaseFrame({
+      // PASO 1: Enviar trama de handshake (mensaje inicial corto)
+      logger.info("Enviando handshake inicial al datáfono...");
+      const handshakeFrame = tefProtocol.buildHandshakeFrame(value.sendPan);
+
+      console.log("=== HANDSHAKE FRAME ===");
+      console.log("Hex:", handshakeFrame.toString("hex"));
+      console.log("Length:", handshakeFrame.length, "bytes");
+      console.log("=======================");
+
+      // Enviar handshake y esperar respuesta
+      const handshakeResponse = await serialManager.sendAndReceive(
+        handshakeFrame,
+        30000,
+      );
+      logger.info("Handshake completado, enviando datos de compra...");
+
+      // PASO 2: Construir y enviar trama de compra completa
+      const purchaseFrame = tefProtocol.buildPurchaseFrame({
         ...value,
         transactionId,
       });
 
-      // Log completo del frame en hexadecimal
-      console.log("=== FRAME COMPLETO ===");
-      console.log("Hex:", frame.toString("hex"));
-      console.log("Length:", frame.length, "bytes");
-      console.log("====================");
+      console.log("=== PURCHASE FRAME ===");
+      console.log("Hex:", purchaseFrame.toString("hex"));
+      console.log("Length:", purchaseFrame.length, "bytes");
+      console.log("======================");
 
-      // Enviar al datáfono y esperar respuesta
-      const response = await serialManager.sendAndReceive(frame);
+      // Enviar compra y esperar respuesta final
+      const response = await serialManager.sendAndReceive(purchaseFrame, 60000);
 
       // Formatear respuesta para la web
       const webResponse = {

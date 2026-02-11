@@ -187,7 +187,7 @@ export function createApiRouter(serialManager, tefProtocol) {
           message: error.details[0].message,
         });
       }
-      logger.warn(req.body);
+      console.dir(value);
       logger.warn("Procesando compra", {
         amount: value.amount,
         terminalId: value.terminalId,

@@ -21,7 +21,7 @@
     "payment", 
     "serial"
   ],
-  "author": "Tu Nombre",
+  "author": "Omega Soluciones Web",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",

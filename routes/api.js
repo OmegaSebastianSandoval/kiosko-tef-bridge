@@ -205,8 +205,13 @@ export function createApiRouter(serialManager, tefProtocol) {
         ...value,
         transactionId,
       });
-      console.log("Frame construido:");
-      console.log({ frame });
+
+      // Log completo del frame en hexadecimal
+      console.log("=== FRAME COMPLETO ===");
+      console.log("Hex:", frame.toString("hex"));
+      console.log("Length:", frame.length, "bytes");
+      console.log("====================");
+
       // Enviar al datáfono y esperar respuesta
       const response = await serialManager.sendAndReceive(frame);
 

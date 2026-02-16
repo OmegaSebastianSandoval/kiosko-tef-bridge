@@ -45,7 +45,7 @@ export function createApiRouter(serialManager, tefProtocol) {
       .integer()
       .min(0)
       .optional()
-      .default(100)
+      .default(0)
       .description("Valor IAC"),
     sendPan: Joi.boolean()
       .optional()

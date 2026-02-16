@@ -228,7 +228,7 @@ export function createApiRouter(serialManager, tefProtocol) {
       console.log("======================");
 
       // Enviar compra y esperar respuesta final
-      const response = await serialManager.sendAndReceive(purchaseFrame, 60000);
+      const response = await serialManager.sendAndReceive(purchaseFrame, 120000);
 
       const tx = response.transactionData || {};
 

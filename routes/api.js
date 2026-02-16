@@ -249,6 +249,7 @@ export function createApiRouter(serialManager, tefProtocol) {
           franchise: tx.franchise,
           accountType: tx.accountType,
           last4: tx.last4,
+          quotas: tx.quotas,
         },
       };
 
@@ -263,6 +264,10 @@ export function createApiRouter(serialManager, tefProtocol) {
       if (!webResponse.data.last4 && legacyFields["36"]) {
         webResponse.data.last4 = legacyFields["36"].ascii;
       }
+      if (!webResponse.data.quotas && legacyFields["3531"]) {
+        webResponse.data.quotas = legacyFields["3531"].ascii;
+      }
+      
       if (legacyFields["95"]) {
         webResponse.data.maskedPan = legacyFields["95"].ascii;
       }

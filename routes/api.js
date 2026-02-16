@@ -230,42 +230,50 @@ export function createApiRouter(serialManager, tefProtocol) {
       // Enviar compra y esperar respuesta final
       const response = await serialManager.sendAndReceive(purchaseFrame, 60000);
 
+      const tx = response.transactionData || {};
+
       // Formatear respuesta para la web
       const webResponse = {
-        status: "ok",
-        message: response.message,
+        status: response.success === true ? "approved" : "rejected",
+        message: response.message || "Transacción procesada",
         data: {
-          success: response.success,
-          authCode: response.authCode,
-          responseCode: response.responseCode,
-          amount: response.amount,
+          success: response.success === true,
+          authCode: tx.authorizationCode || response.authCode,
+          responseCode: tx.responseCode || response.responseCode,
+          amount: tx.amount || response.amount,
           transactionId,
           terminalId: value.terminalId,
           cashierId: value.cashierId,
+          date: tx.date,
+          time: tx.time,
+          franchise: tx.franchise,
+          accountType: tx.accountType,
+          last4: tx.last4,
         },
       };
 
-      // Agregar campos adicionales si existen
-      if (response.fields["3F"]) {
-        webResponse.data.franchise = response.fields["3F"].ascii;
+      // Compatibilidad retroactiva: si viene estructura antigua con fields, usarla como fallback
+      const legacyFields = response.fields || {};
+      if (!webResponse.data.franchise && legacyFields["3F"]) {
+        webResponse.data.franchise = legacyFields["3F"].ascii;
       }
-      if (response.fields["32"]) {
-        webResponse.data.accountType = response.fields["32"].ascii;
+      if (!webResponse.data.accountType && legacyFields["32"]) {
+        webResponse.data.accountType = legacyFields["32"].ascii;
       }
-      if (response.fields["36"]) {
-        webResponse.data.last4 = response.fields["36"].ascii;
+      if (!webResponse.data.last4 && legacyFields["36"]) {
+        webResponse.data.last4 = legacyFields["36"].ascii;
       }
-      if (response.fields["95"]) {
-        webResponse.data.maskedPan = response.fields["95"].ascii;
+      if (legacyFields["95"]) {
+        webResponse.data.maskedPan = legacyFields["95"].ascii;
       }
-      if (response.fields["43"]) {
-        webResponse.data.receiptNumber = response.fields["43"].ascii;
+      if (legacyFields["43"]) {
+        webResponse.data.receiptNumber = legacyFields["43"].ascii;
       }
-      if (response.fields["46"]) {
-        webResponse.data.transactionDate = response.fields["46"].ascii;
+      if (legacyFields["46"]) {
+        webResponse.data.transactionDate = legacyFields["46"].ascii;
       }
-      if (response.fields["47"]) {
-        webResponse.data.transactionTime = response.fields["47"].ascii;
+      if (legacyFields["47"]) {
+        webResponse.data.transactionTime = legacyFields["47"].ascii;
       }
 
       logger.info("Compra procesada", {

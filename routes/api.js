@@ -220,7 +220,7 @@ export function createApiRouter(serialManager, tefProtocol) {
       const purchaseFrame = tefProtocol.buildPurchaseFrame({
         ...value,
         transactionId,
-      });
+      },120000);
 
       console.log("=== PURCHASE FRAME ===");
       console.log("Hex:", purchaseFrame.toString("hex"));

@@ -171,6 +171,7 @@ export function createApiRouter(serialManager, tefProtocol) {
    * @apiSuccess {String} data.amount Monto autorizado
    * @apiSuccess {String} [data.maskedPan] PAN enmascarado (si aplica)
    * @apiSuccess {String} [data.franchise] Franquicia (VISA, MC, etc.)
+   * @apiSuccess {String} [data.receiptNumber] Número de recibo
    * @apiSuccess {String} [data.accountType] Tipo de cuenta (CR=Crédito, DB=Débito)
    * @apiSuccess {String} [data.last4] Últimos 4 dígitos de tarjeta
    * @apiSuccess {String} data.receiptNumber Número de recibo
@@ -247,6 +248,7 @@ export function createApiRouter(serialManager, tefProtocol) {
           date: tx.date,
           time: tx.time,
           franchise: tx.franchise,
+          receiptNumber: tx.receiptNumber,
           accountType: tx.accountType,
           last4: tx.last4,
           quotas: tx.quotas,
@@ -255,8 +257,12 @@ export function createApiRouter(serialManager, tefProtocol) {
 
       // Compatibilidad retroactiva: si viene estructura antigua con fields, usarla como fallback
       const legacyFields = response.fields || {};
+      this.logger.debug("Campos legacy recibidos:", legacyFields);
       if (!webResponse.data.franchise && legacyFields["3F"]) {
         webResponse.data.franchise = legacyFields["3F"].ascii;
+      }
+      if (!webResponse.data.receiptNumber && legacyFields["3433"]) {
+        webResponse.data.receiptNumber = legacyFields["3433"].ascii;
       }
       if (!webResponse.data.accountType && legacyFields["32"]) {
         webResponse.data.accountType = legacyFields["32"].ascii;

@@ -229,7 +229,10 @@ export function createApiRouter(serialManager, tefProtocol) {
       console.log("======================");
 
       // Enviar compra y esperar respuesta final
-      const response = await serialManager.sendAndReceive(purchaseFrame, 120000);
+      const response = await serialManager.sendAndReceive(
+        purchaseFrame,
+        120000,
+      );
 
       const tx = response.transactionData || {};
 
@@ -257,7 +260,7 @@ export function createApiRouter(serialManager, tefProtocol) {
 
       // Compatibilidad retroactiva: si viene estructura antigua con fields, usarla como fallback
       const legacyFields = response.fields || {};
-      console.log("Campos legacy recibidos:", legacyFields);
+      logger.info("Campos legacy recibidos:", legacyFields);
       if (!webResponse.data.franchise && legacyFields["3F"]) {
         webResponse.data.franchise = legacyFields["3F"].ascii;
       }
@@ -273,7 +276,7 @@ export function createApiRouter(serialManager, tefProtocol) {
       if (!webResponse.data.quotas && legacyFields["3531"]) {
         webResponse.data.quotas = legacyFields["3531"].ascii;
       }
-      
+
       if (legacyFields["95"]) {
         webResponse.data.maskedPan = legacyFields["95"].ascii;
       }

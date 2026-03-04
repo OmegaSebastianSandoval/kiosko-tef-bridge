@@ -257,7 +257,7 @@ export function createApiRouter(serialManager, tefProtocol) {
 
       // Compatibilidad retroactiva: si viene estructura antigua con fields, usarla como fallback
       const legacyFields = response.fields || {};
-      this.logger.debug("Campos legacy recibidos:", legacyFields);
+      console.log("Campos legacy recibidos:", legacyFields);
       if (!webResponse.data.franchise && legacyFields["3F"]) {
         webResponse.data.franchise = legacyFields["3F"].ascii;
       }

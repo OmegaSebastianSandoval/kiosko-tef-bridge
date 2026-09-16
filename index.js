@@ -34,7 +34,7 @@ app.use(
   cors({
     origin: config.server.cors_origins,
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    allowedHeaders: ["Content-Type", "ngrok-skip-browser-warning"],
   }),
 );
 app.use(express.json());

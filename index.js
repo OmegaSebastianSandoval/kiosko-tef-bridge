@@ -69,8 +69,17 @@ async function initialize() {
     // Inicializar gestor serial
     serialManager = new SerialManager(config.serial);
 
-    // Conectar al datáfono
-    await serialManager.connect();
+    // Conectar al datáfono. Si falla, el servidor HTTP arranca igual para poder
+    // diagnosticar con GET /api/health y reintentar con POST /api/connect.
+    try {
+      await serialManager.connect();
+    } catch (error) {
+      logger.error(`No se pudo conectar al datáfono: ${error.message}`);
+      logger.warn(
+        "El servicio arranca SIN conexión serial: las transacciones fallarán " +
+          "hasta conectar con POST /api/connect",
+      );
+    }
 
     // Crear router API
     const apiRouter = createApiRouter(serialManager, TEFProtocol);

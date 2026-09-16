@@ -113,15 +113,23 @@ export function createApiRouter(serialManager, tefProtocol) {
       logger.info("Solicitud de conexión a puerto:", value.port);
 
       // Actualizar configuración con el puerto seleccionado
-      serialManager.config.serial.port = value.port;
+      // (serialManager.config ya es config.serial, no lleva .serial anidado)
+      serialManager.config.port = value.port;
 
       // Intentar conectar
       await serialManager.connect();
 
+      if (!serialManager.isConnected) {
+        return res.status(503).json({
+          success: false,
+          message: `No se pudo conectar al datáfono en ${value.port}`,
+        });
+      }
+
       res.json({
         success: true,
         message: "Conectado al datáfono exitosamente",
-        port: value.port,
+        port: serialManager.activePort,
       });
     } catch (error) {
       logger.error("Error en conexión:", error.message);
@@ -139,8 +147,11 @@ export function createApiRouter(serialManager, tefProtocol) {
    */
   router.get("/health", (req, res) => {
     const status = serialManager.getStatus();
-    res.json({
-      status: "ok",
+    res.status(status.connected ? 200 : 503).json({
+      status: status.connected ? "ok" : "error",
+      message: status.connected
+        ? "Datáfono conectado"
+        : `Sin conexión serial con el datáfono (puerto configurado: ${status.configuredPort})`,
       timestamp: new Date().toISOString(),
       service: "tef-bridge",
       version: "1.0.0",

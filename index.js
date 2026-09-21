@@ -25,6 +25,7 @@ import { logger } from "./lib/logger.js";
 import { SerialManager } from "./lib/SerialManager.js";
 import { TEFProtocol } from "./lib/TEFProtocol.js";
 import { createApiRouter } from "./routes/api.js";
+import { createBasicAuth } from "./lib/basicAuth.js";
 
 // Aplicación Express
 const app = express();
@@ -34,7 +35,7 @@ app.use(
   cors({
     origin: config.server.cors_origins,
     methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type", "ngrok-skip-browser-warning"],
+    allowedHeaders: ["Content-Type", "Authorization", "ngrok-skip-browser-warning"],
   }),
 );
 app.use(express.json());
@@ -84,8 +85,13 @@ async function initialize() {
     // Crear router API
     const apiRouter = createApiRouter(serialManager, TEFProtocol);
 
-    // Rutas
-    app.use("/api", apiRouter);
+    // Rutas. Todo lo que cuelga de /api exige HTTP Basic: es la unica puerta
+    // de entrada al datafono y el servicio queda publicado por el tunel.
+    const basicAuth = createBasicAuth({
+      user: process.env.BRIDGE_AUTH_USER,
+      password: process.env.BRIDGE_AUTH_PASS,
+    });
+    app.use("/api", basicAuth, apiRouter);
 
     // Ruta de bienvenida
     app.get("/", (req, res) => {
